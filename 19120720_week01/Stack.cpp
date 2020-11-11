@@ -107,7 +107,22 @@ void printStack(NODE* top) {
 	cout << endl;
 }
 
+void destroyStack(NODE*& top) {
 
+	//ham huy stack
+
+	if (isEmtyStack(top)) {
+		return;
+	}
+
+	NODE* temp = top;
+	while (temp) {
+
+		top = temp->pNext;
+		delete temp;
+		temp = top;
+	}
+}
 int main() {
 
 
@@ -133,4 +148,7 @@ int main() {
 	cout << "\nCOUNT : " << countStack(Q) << endl;
 	printStack(Q);
 
+	destroyStack(Q);
+
+	return 0;
 }

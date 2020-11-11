@@ -107,6 +107,20 @@ void printQueue(NODE* top) {
 	cout << endl;
 }
 
+void destroyQueue(NODE*& Q) {
+	
+	if(isEmtyQueue(Q)){
+		return;
+	}
+	NODE* temp = Q;
+	while (temp) {
+
+		Q=temp->pNext;
+		delete  temp;
+		temp = Q;
+	}
+}
+
 int main() {
 
 	NODE* Q = nullptr;
@@ -129,7 +143,7 @@ int main() {
 	cout << "\nCOUNT : " << countQueue(Q) << endl;
 	printQueue(Q);
 
-
-
-
+	destroyQueue(Q);
+	
+	return 0;
 }
