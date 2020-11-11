@@ -21,3 +21,4 @@ void printStack( NODE * top);
 
 int  countStack(NODE* top);
 
+void destroyStack(NODE*& top);

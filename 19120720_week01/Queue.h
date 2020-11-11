@@ -19,3 +19,5 @@ int deQueue(NODE*& Q);
 int countQueue(NODE* Q);
 
 void printQueue(NODE*Q);
+
+void destroyQueue(NODE*& Q);
