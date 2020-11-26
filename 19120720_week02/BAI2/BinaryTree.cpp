@@ -22,6 +22,8 @@ NODE* createNode(int data) {
 
 void NLR(NODE* pRoot) {
 
+	// duyet tien thu tu
+
 	if (!pRoot) return;
 
 	cout << pRoot->key << " ";
@@ -37,6 +39,8 @@ void NLR(NODE* pRoot) {
 }
 
 void LNR(NODE* pRoot) {
+
+	// duyet trung thu tu
 
 	if (!pRoot) return;
 
@@ -57,6 +61,8 @@ void LNR(NODE* pRoot) {
 
 void LRN(NODE* pRoot) {
 
+	//duyet hau thu tu
+
 	if (!pRoot) return;
 
 	if (pRoot->p_left) {
@@ -66,11 +72,13 @@ void LRN(NODE* pRoot) {
 	if (pRoot->p_right) {
 		LRN(pRoot->p_right);
 	}
-	cout << pRoot->key;
+	cout << pRoot->key << " ";
 
 }
 
 void LevelOrder(NODE* pRoot) {
+	
+	//duyet tung tang
 
 	int level = 1;
 
@@ -78,12 +86,14 @@ void LevelOrder(NODE* pRoot) {
 		level++;
 		cout << endl;
 	}
-
 }
 
 
 NODE* Search(NODE* pRoot, int x) {
-	//C1
+
+	//tim phan tu co gia tri cho truoc x 
+
+	//C1:
 
 	if (pRoot == nullptr || pRoot->key == x) {
 
@@ -106,8 +116,9 @@ void Insert(NODE*& cur, int x) {
 		return;
 	}
 	else {
+		// giup nhanh duoc 1 vong buoc :)
 
-		/*if (!cur->p_left && !cur->p_right) {
+		if (!cur->p_left && !cur->p_right) {
 
 			if (cur->key < x) {
 				cur->p_right = createNode(x);
@@ -116,7 +127,7 @@ void Insert(NODE*& cur, int x) {
 				cur->p_left = createNode(x);
 			}
 			return;
-		}*/
+		}
 
 		if (x < cur->key) {
 			Insert(cur->p_left, x);
@@ -128,6 +139,8 @@ void Insert(NODE*& cur, int x) {
 }
 
 NODE* insertElement(NODE*& pRoot, int x) {
+
+	// them phan tu co gia tri cho truoc
 
 	if (pRoot == nullptr) {
 	
@@ -145,15 +158,15 @@ NODE* insertElement(NODE*& pRoot, int x) {
 	}
 
 }
-//NODE* ReplaceElement(NODE* pRoot) {
-//
-//	if (!pRoot->p_left) {
-//		return pRoot->p_left;
-//	}
-//	return ReplaceElement(pRoot->p_left);
-//
-//}
 
+/*NODE* ReplaceElement(NODE* pRoot) {
+
+	if (!pRoot->p_left) {
+		return pRoot->p_left;
+	}
+	return ReplaceElement(pRoot->p_left);
+
+}*/
 
 NODE* minimunKey(NODE* pRoot) {
 
@@ -178,6 +191,8 @@ void searchKey(NODE*& curr, int data, NODE*& parent) {
 }
 
 void Remove(NODE*& pRoot, int x){
+
+	// xoa phan tu co gia tri x cho truoc
 
 	NODE* parent = nullptr;
 
@@ -257,6 +272,8 @@ NODE* createTree(int a[], int n ) {
 
 void removeTree(NODE*& pRoot) {
 
+	// xoa cay nhi phan tim kiem
+
 	if (!pRoot) return;
 
 	if (pRoot->p_left) {
@@ -290,6 +307,8 @@ int Height(NODE* pRoot) {
 
 int countNode(NODE* pRoot) {
 
+	// dem so luong node
+
 	if (!pRoot) return 0;
 	int count = 1;
 	if (pRoot->p_left) {
@@ -303,6 +322,8 @@ int countNode(NODE* pRoot) {
 }
 
 int sumNode(NODE* pRoot) {
+
+	// tinh tong cua toan bo cac node
 
 	if (!pRoot) return 0;
 	int sum = pRoot->key;
@@ -318,6 +339,7 @@ int sumNode(NODE* pRoot) {
 
 int heightNode(NODE* pRoot, int value) {
 
+	// chieu cao cua cay
 
 	NODE* curr = pRoot;
 	while (curr && curr->key!=value) {
@@ -336,6 +358,8 @@ int heightNode(NODE* pRoot, int value) {
 
 int Level(NODE* pRoot, NODE* p) {
 
+	//tinh tong tang
+
 	int sum = 0;
 	if (!pRoot || !p) {
 		return -1;
@@ -349,7 +373,8 @@ int Level(NODE* pRoot, NODE* p) {
 
 int LevelOrderTraversal(NODE* pRoot, int level) {
 
-	
+	//duyet cay theo tang
+
 	if (level == 1) {
 		return pRoot->key;
 	}
@@ -359,6 +384,8 @@ int LevelOrderTraversal(NODE* pRoot, int level) {
 }
 
 int countLeaf(NODE* pRoot) {
+
+	//dem so luong node la 
 
 	if (!pRoot) return 0;
 
@@ -380,6 +407,8 @@ int countLeaf(NODE* pRoot) {
 
 int countLess(NODE* pRoot, int x) {
 
+	// dem so luong node nho hon node co gia tri cho truoc x
+
 	if (!pRoot) return 0;
 
 	int count = 0;
@@ -397,6 +426,8 @@ int countLess(NODE* pRoot, int x) {
 }
 
 int countGreater(NODE* pRoot, int x) {
+
+	// dem co luong co gia tri lon hon gia tri node cho truoc
 
 	/*
 	//c1
@@ -430,6 +461,8 @@ int countGreater(NODE* pRoot, int x) {
 
 bool isBST(NODE* pRoot) {
 
+	// kiem tra cay co phai cay nhi phan khong
+
 	if (pRoot == nullptr) {
 		return true;
 	}
@@ -450,6 +483,8 @@ bool isBST(NODE* pRoot) {
 
 bool isFull(NODE* pRoot) {
 
+	//kiem tra phai cay day du hay khong
+
 	//TH cay rong 
 	if (!pRoot) {
 		return true;
@@ -469,10 +504,15 @@ bool isFull(NODE* pRoot) {
 
 }
 bool isFullBST(NODE* pRoot) {
+
+	//kiem tra cay nhi phan tim kiem day du
+
 	return isFull(pRoot)&&isBST(pRoot);
 }
 
 bool printLevel(NODE* pRoot, int level) {
+
+	// in theo tang
 
 	if (!pRoot) {
 		return false;
@@ -493,19 +533,8 @@ int NumberOfNode(NODE* pRoot, int x) {
 
 	if (!pRoot) return 0;
 	
+	// dem so luong node co gia tri nho hon gia tri x
 
-	/*if (pRoot->key == x) {
-		int result = countNode(pRoot->p_left);
-		return result;
-	}
-	else {
-		if (pRoot->p_left) {
-			NumberOfNode(pRoot->p_left, x);
-		}
-		if (pRoot->p_right) {
-			NumberOfNode(pRoot->p_right, x);
-		}
-	}*/
 	else {
 		NODE* cur = pRoot;
 		while (cur->p_left && cur && cur->key != x) {

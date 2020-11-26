@@ -62,18 +62,56 @@ void MaxHeap(int a[], int n, int i) {
 
 		MaxHeap(a, n, max);
 	}
+}
+
+void deleteMaxValue(int a[], int& n) {
+
+	buildMaxHeap(a, n);
+
+	for (int i = 0; i < n-1; i++) {
+
+		a[i] = a[i + 1];
+	}
+	n--;
 
 }
+
+void deleteMinValue(int a[], int& n) {
+
+	buildMinHeap(a, n);
+
+	for (int i = 0; i < n - 1; i++) {
+
+		a[i] = a[i + 1];
+	}
+	n--;
+
+}
+void printArrray(int a[], int n) {
+
+	for (int i = 0; i < n; i++) {
+		cout << a[i] << " ";
+	}
+	cout << endl;
+}
+
 int main() {
 	int a[] = { 3,92,25,32,65,45,89,11,14,38 };
 	int n = 10;
 	buildMinHeap(a, n);
-	for (int i = 0; i < n; i++) {
-		cout << a[i] << " ";
-	}
+	cout << "\nMANG SAU KHI TAO MINHEAP: ";
+	printArrray(a, n);
+
 	buildMaxHeap(a, n);
-	for (int i = 0; i < n; i++) {
-		cout << a[i] << " ";
-	}
+	cout << "\nMANG SAU KHI TAO MAXHEAP: ";
+	printArrray(a, n);
+
+	deleteMinValue(a, n);
+	cout << "\nMANG SAU KHI XOA PHAN TU LON NHAT: ";
+	printArrray(a, n);
+
+	deleteMaxValue(a, n);
+	cout << "\nMANG SAU KHI XOA PHAN TU NHO NHAT: ";
+	printArrray(a, n);
 	return 0;
 }
