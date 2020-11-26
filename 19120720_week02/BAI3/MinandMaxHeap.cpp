@@ -1,6 +1,7 @@
 #include"MinandMaxheap.h"
 
 void buildMinHeap(int arr[], int n) {
+	//tao min heap
 
 	int start = (n / 2) - 1;
 	for (int i = start; i >= 0; i--) {
@@ -10,7 +11,8 @@ void buildMinHeap(int arr[], int n) {
 }
 
 void buildMaxHeap(int arr[], int n) {
-	
+	//tao max heap
+
 	int start = (n / 2) - 1;
 	for (int i = start; i >= 0; i--) {
 
@@ -25,7 +27,7 @@ void swap(int& a, int& b) {
 	
 }
 void MinHeap(int a[], int n, int i) {
-  
+   // sap xep minheap
 	int min = i;
 	int left = 2 * i + 1;
 	int right = 2 * i + 2;
@@ -46,6 +48,8 @@ void MinHeap(int a[], int n, int i) {
 }
 
 void MaxHeap(int a[], int n, int i) {
+	//sap xep maxheap
+
 	int max = i;
 	int left = 2 * i + 1;
 	int right = 2 * i + 2;
@@ -66,6 +70,7 @@ void MaxHeap(int a[], int n, int i) {
 
 void deleteMaxValue(int a[], int& n) {
 
+	//xoa phan tu lon nhat cua maxheap
 	buildMaxHeap(a, n);
 
 	for (int i = 0; i < n-1; i++) {
@@ -78,6 +83,8 @@ void deleteMaxValue(int a[], int& n) {
 
 void deleteMinValue(int a[], int& n) {
 
+	//xoa phan tu nho nhat cua min heap
+
 	buildMinHeap(a, n);
 
 	for (int i = 0; i < n - 1; i++) {
@@ -85,7 +92,8 @@ void deleteMinValue(int a[], int& n) {
 		a[i] = a[i + 1];
 	}
 	n--;
-
+	
+	//buildMinHeap(a, n);
 }
 void printArrray(int a[], int n) {
 
@@ -107,11 +115,11 @@ int main() {
 	printArrray(a, n);
 
 	deleteMinValue(a, n);
-	cout << "\nMANG SAU KHI XOA PHAN TU LON NHAT: ";
+	cout << "\nMANG SAU KHI XOA PHAN TU NHO NHAT: ";
 	printArrray(a, n);
 
 	deleteMaxValue(a, n);
-	cout << "\nMANG SAU KHI XOA PHAN TU NHO NHAT: ";
+	cout << "\nMANG SAU KHI XOA PHAN TU LON NHAT: ";
 	printArrray(a, n);
 	return 0;
 }
