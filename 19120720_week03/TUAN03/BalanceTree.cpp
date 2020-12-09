@@ -1,4 +1,4 @@
-#include"BalanceTree.h"
+﻿#include"BalanceTree.h"
 
 NODE* createNode(int data) {
 
@@ -15,43 +15,118 @@ NODE* createNode(int data) {
 	return temp;
 }
 
-int Insert(NODE*& pRoot, int x) {
-
-	// Them vao 1 node co gia tri cho truoc x 
-
-	int temp = 0;
-	if (!pRoot) {
-		pRoot = createNode(x);
+void LeftBalance(NODE*& P)
+{
+	switch (P->p_left->balance) {
+	case 1: //mất cân bằng trái trái
+		rightRotate(P);
+		P->balance = 0;
+		P->p_right->balance = 0;
+		break;
+	case 2: 
+		leftRotate(P->p_left);
+		rightRotate(P);
+		switch (P->balance) {
+		case 0:
+			P->p_left->balance = 0;
+			P->p_right->balance = 0;
+			break;
+		case 1:
+			P->p_left->balance = 0;
+			P->p_right->balance = 2;
+			break;
+		case 2:
+			P->p_left->balance = 1;
+			P->p_right->balance = 0;
+			break;
+		}
+		P->balance = 0;
+		break;
 	}
-	else if (pRoot->key > x) {
+}
+void RightBalance( NODE*& P){
 
-		temp = Insert(pRoot->p_left, x);
-
-		if (temp < 2) {
-			return temp;
+	switch (P->p_right->balance) {
+	case 1: 
+		rightRotate(P->p_right);
+		leftRotate(P);
+		switch (P->balance) {
+		case 0:
+			P->p_left->balance = 0;
+			P->p_right->balance = 0;
+			break;
+		case 1:
+			P->p_left->balance = 1;
+			P->p_right->balance = 0;
+			break;
+		case 2:
+			P->p_left->balance = 0;
+			P->p_right->balance = 2;
+			break;
 		}
-		switch (pRoot->balance) {
-
-		case 0:pRoot->balance = -1; return 2;
-		case 1:pRoot->balance = 0; return 1;
-		case -1:getBalance(pRoot); return 1;
-		}
+		P->balance = 0;
+		break;
+	case 2: 
+		leftRotate(P);
+		P->balance = 0;
+		P->p_left->balance = 0;
+		break;
 	}
-	else if (pRoot->key < x) {
+}
+int Insert(NODE*& tree, int x){
 
-		temp = Insert(pRoot->p_right, x);
+	// them 1 node co gia tri x cho truoc
 
-		if (temp < 2) {
-			return temp;
+	int res;
+	if (!tree) { 
+		tree = createNode(x);
+		if (tree == NULL) {
+			return -1; 
 		}
-		switch (pRoot->balance) {
-
-		case 0:pRoot->balance = 1; return 2;
-		case -1:pRoot->balance = 0; return 1;
-		case 1:getBalance(pRoot); return 1;
+		return 2;
+	}
+	else {
+		if (tree->key == x) {
+			return 0; 
+		}
+		else if (tree->key > x) {
+			res = Insert(tree->p_left, x);
+			if (res < 2) {
+				return res;
+			}
+			switch (tree->balance) { 
+				
+			case 0:
+				tree->balance = 1;
+				return 2;
+			case 1:
+				LeftBalance(tree);
+				return 1;
+			case 2:
+				tree->balance = 0;
+				return 1;
+			}
+		}
+		else {
+			res = Insert(tree->p_right, x);
+			if (res < 2) {
+				return res;
+			}
+			switch (tree->balance) {
+			case 0:
+				tree->balance = 2;
+				return 2;
+			case 1:
+				tree->balance = 0;
+				return 1;
+			case 2:
+				RightBalance(tree);
+				return 1;
+			}
 		}
 	}
 }
+
 
 void Remove(NODE*& pRoot, int x) {
 
@@ -112,11 +187,9 @@ void LNR(NODE* pRoot) {
 	if (!pRoot) {
 		return;
 	}
-
-	NLR(pRoot->p_left);
-	cout << pRoot->key<<" ";
-
-	NLR(pRoot->p_right);
+	LNR(pRoot->p_left);
+	cout << pRoot->key << " ";
+	LNR(pRoot->p_right);
 }
 
 void LRN(NODE* pRoot) {
@@ -176,28 +249,12 @@ void rightRotate(NODE*& pRoot){
 	// xoay phai 
 
 	if (!pRoot) return;
-	NODE* q = pRoot->p_left;
+	NODE* q = nullptr;
+	q = pRoot->p_left;
 	pRoot->p_left = q->p_right;
 	q->p_right = pRoot;
-	switch (q->balance) {
-	case -1: {
-		q->balance = 0;
-		pRoot->balance = 0;
-		break;
-	}
-	case 0: {
-		if (!q->p_right) {
-			q->balance = 0;
-			pRoot->balance = -1;
-		}
-		else {
-			q->balance = 1;
-			pRoot->balance = -1;
-		}
-		break;
-	}
-	}
 	pRoot = q;
+	
 }
 void leftRotate(NODE*& pRoot) {
 
@@ -205,69 +262,14 @@ void leftRotate(NODE*& pRoot) {
 
 	if (!pRoot) return;
 
-	NODE* q = pRoot->p_right;
-	pRoot->p_right = q->p_left;
-	q->p_left = pRoot;
-	switch (q->balance) {
-	case 1: {
-		q->balance = 0;
-		pRoot->balance = 0;
-		break;
-	}
-	case 0: {
-		if (!q->p_right) {
-			q->balance = 0;
-			pRoot->balance = 1;
-		}
-		else {
-			q->balance = -1;
-			pRoot->balance = 1;
-		}
-		break;
-	}
-	}
-	pRoot = q;
+	NODE* Q=nullptr;
+	Q = pRoot->p_right;
+	pRoot->p_right = Q->p_left;
+	Q->p_left = pRoot;
+	pRoot = Q;
 }
 
-void getBalance(NODE*& pRoot){
 
-	// lam cay can bang
-
-	if (pRoot->balance == 0 || !pRoot) {
-		return;
-	}
-	else if (!isAVL(pRoot) && pRoot->balance == 1) {
-
-		if (pRoot->p_right->balance == 0) {
-
-			return;
-		}
-		else if (pRoot->p_right->balance == 1) {
-
-			leftRotate(pRoot);
-		}
-		else {
-
-			rightRotate(pRoot->p_right);
-			leftRotate(pRoot);
-		}
-	}
-	else if (!isAVL(pRoot) && pRoot->balance == -1) {
-		if (pRoot->p_left->balance == 0) {
-
-			return;
-		}
-		else if (pRoot->p_left->balance == -1) {
-
-			rightRotate(pRoot);
-		}
-		else {
-
-			leftRotate(pRoot->p_left);
-			rightRotate(pRoot);
-		}
-	}
-}
 
 bool printLevel(NODE* pRoot, int level) {
 
@@ -286,31 +288,46 @@ bool printLevel(NODE* pRoot, int level) {
 
 }
 
+void removetree(NODE*& pRoot)
+{
+	if (!pRoot)
+		return;
+	removetree(pRoot->p_left);
+	removetree(pRoot->p_right);
+	if (!pRoot->p_left && !pRoot->p_right)
+	{
+		NODE* p = pRoot;
+		pRoot = pRoot->p_right;
+		delete p;
+	}
+}
+
 int main() {
 
 	NODE* pRoot = nullptr;
 
 	int n = 13;
 
-	int a[] = { 15,10,33,4,21,12,35,3,7,11,34,27,45 };
+	//int a[] = { 15,10,33,4,21,12,35,3,7,11,34,27,45 };
 
-	
+	int a[] = { 15,10,11,34,27,45, 33,4,21,12,35,3,7 };
 
 	for (int i = 0; i < n; i++) {
 		Insert(pRoot, a[i]);
 	}
 	/*
-											 15
+											 27
 
 									 /                 \
-								   10                     33
+								   11                     34
 
 							  /         \             /        \
-							4            12        21          35
+							4            15        33          45
 
-						/       \    /                 \     /     \
-					  3          7  11                  27  34       45
-
+						/       \    /       \         \
+					  3          10  12       21        35
+					    \
+					      7
 	*/
 
 	if (isAVL(pRoot)) {
@@ -332,10 +349,12 @@ int main() {
 	int value = 15;
 	cout << "\nXOA NODE CO GIA TRI: " << value << endl;
 
-	Remove(pRoot, 15);
+	Remove(pRoot, value);
 	cout << "\nCAY SAU KHI XOA: " << endl;
 	LevelOrder(pRoot);
-
+	
+	removetree(pRoot);
+	return 0;
 
 
 }

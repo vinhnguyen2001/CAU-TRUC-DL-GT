@@ -35,4 +35,8 @@ void leftRotate(NODE*& pRoot);
 
 bool printLevel(NODE* pRoot, int level);
 
-void getBalance(NODE*& pRoot);
+void RightBalance(NODE*& P);
+
+void LeftBalance(NODE*& P);
+
+void removetree(NODE*& pRoot);;
