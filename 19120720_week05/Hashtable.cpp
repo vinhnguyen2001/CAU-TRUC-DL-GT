@@ -37,13 +37,12 @@ vector<Company> readCompanyList(string file_name) {
 		while (getline(os, line_info, '\n')&&!os.eof()) {
 			result.push_back(readCompany(line_info));
 		}
+		cout << "Read file data done";
+		os.close();
 	}
 	else {
 		cout << "\nError opening file! ";
 	}
-	cout << "Read file data done";
-	os.close();
-
 	return result;
 }
 
@@ -88,41 +87,69 @@ Company* createHashTable(vector<Company> list_company) {
 
 		index = hashString(list_company[i].name);
 		//xu li truong hop index roi ra ngoai mang (2000-phan tu)
-		while (2000 <= index || (index < 2000 && hashtable[index].name != "")) {
-			index = (index + 1) % 2000;
+		if (2000 <= index) {
+			index = index % 2000;
 		}
-	
+		long long temp = index;
+
+		while ( hashtable[index].name != "" ) {
+		
+			index = (index + 1) % 2000;
+			//xu li truong hop bang bam bi day phan tu.
+			if (index == temp ) {
+				break;
+			}
+		}
 		hashtable[index] = list_company[i];
 	}
-
 	return hashtable;
 }
 
-void insert(Company* hash_table, Company company) {
+bool insert(Company* hash_table, Company company) {
 	// chen them thong tin cua 1 cong ty vao 1 bang bam cu the
 
 	long long index = hashString(company.name);
-
-	while (2000 <= index || (index < 2000 && hash_table[index].name != "")) {
+	//xu li truong hop index lon hon so phan tu cua bang bam
+	if (2000 <= index) {
+		index = index % 2000;
+	}
+	long long temp = index;
+	while (hash_table[index].name != "") {
+		//xu li truong hop bang bam bi day phan tu
+		if (index == temp - 1) {
+			return false;
+		}
 		index = (index + 1) % 2000;
+		
 	}
 	hash_table[index] = company;
-
+	return true;
 }
 
 Company* search(Company* hash_table, string company_name) {
 
 	// tim kiem ten cua mot cong ty trong bang bam
 	long long index = hashString(company_name);
+	
+	if (2000 <= index) {
+		index = index % 2000;
+	}
+	long long temp = index;
 	Company* result = nullptr;
-	for (int i = 0; i < 2000; i++) {
-
-		if((hash_table[i].name != "") && (hash_table[i].name == company_name)) { 
-			result = &hash_table[i];
-			break;
+	while (hash_table[index].name != "") {
+		
+		if (hash_table[index].name == company_name) {
+			result = &hash_table[index];
+			return result;
+		}
+		else {
+			//xu truong hop cong ty can tim khong co trong bang bam
+			if (index == temp - 1) {
+				return result;
+			}
+			else index = (index + 1) % 2000;
 		}
 	}
-	return result;
 }
 
 
@@ -133,17 +160,34 @@ int main() {
 	VNG.profit_tax = "11134723452";
 	VNG.address="182 LE DAI HANH - P.15 - Q.11 - TP HO CHI MINH";
 	vector<Company> result = readCompanyList("data.txt");
-	
 	hash_table = createHashTable(result);
-	insert(hash_table, VNG);
-	Company* a =search(hash_table, VNG.name);
-	cout << "\nTEN CONG TY CAN TIM: " << a->name << endl;
-	int count = 0;
+	if (insert(hash_table, VNG)) {
+		cout << "\nCONG TY " << VNG.name << " DA DUOC THEM VAO BANG BAM" << endl;
+	}
+	else {
+		cout << "\nBANG BAM DA DAY PHAN TU!";
+	}
+	Company* company = nullptr;
+	
+	company = search(hash_table, VNG.name);
+	if (company!=nullptr) {
+		cout << "\nTHONG TIN CUA CONG TY CAN TIM: " << endl;
+		cout << company->name << "|" << company->profit_tax << "|" << company->address << endl;
+	}
+	else {
+		cout << "\nCONG TY KHONG TON TAI TRONG BANG BAM!" << endl;
+	}
+	/*int count = 0;
+	cout << "\nDANH SACH CAC CONG TY: " << endl;
 	for (int i = 0; i < 2000; i++) {
 		if (hash_table[i].name != "") {
 			count++;
-			cout<<i << hash_table[i].name << endl;
+			cout<<i<<" " << hash_table[i].name << "|" << hash_table[i].profit_tax << "|" <<hash_table[i].address<< endl;
 		}
+	}*/
+	if (hash_table) {
+		delete hash_table;
+		hash_table = nullptr;
 	}
 	return 0;
 }

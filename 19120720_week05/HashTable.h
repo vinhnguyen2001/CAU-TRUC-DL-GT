@@ -22,6 +22,6 @@ long long hashString(string company_name);
 
 Company* createHashTable(vector<Company> list_company);
 
-void insert(Company* hash_table, Company company);
+bool insert(Company* hash_table, Company company);
 
 Company* search(Company* hash_table, string company_name);
