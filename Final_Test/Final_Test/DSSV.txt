@@ -1,0 +1,45 @@
+So luong sinh vien: 43
+MSSV	Ho	Ten	Diem
+20126009	Tu Khanh	Duy	8
+20126010	Nguyen Thi My	Duyen	5
+20126001	Phan Hanh	An	10
+20126016	Pham Quang	Huy	7.5	
+20126003	Tran Quang	Minh	10
+20126012	Tran Ngoc Thu	Giang
+20126018	Huynh Gia	Khiem	3.5
+20126019	Pham Ho Minh	Khue	1.5
+20126020	Pham Van	Loc	6
+20126021	Le Viet	Luc	4.5
+20126023	Duong Dinh	Phuc	2
+20126024	Phan Dinh Anh	Quan	10
+20126025	Tran Minh	Quan	7
+20126029	Tran Dao Xuan	Tri	8
+20126030	Tran Tat	Tri	2.5
+20126031	Ha Thi Thanh 	Tu	3
+20126034	Nguyen Van	Chinh	2.5
+20126036	Pham Thai	Duong	2.5
+20126037	Nguyen Tran Anh	Duy	7
+20126038	Nguyen Ho Trung	Hieu	8.5
+20126039	Tran Thien	Khiem	3.5
+20126040	Le Da	Khoa	5
+20126041	Nguyen Huynh	Man	4
+20126042	Nguyen Thien	Minh	10
+20126044	Nguyen Cuong	Nam	3.5
+20126045	Vu Hoai	Nam	9.5
+20126046	Doan Van	Nghi	6
+20126047	Luu Minh	Nhat	1.5
+20126048	Nguyen Mong Thanh	Nhi	0.5
+20126049	Nguyen Thanh	Nhon	6
+20126050	Ngo Thi Hoang	Oanh	0.5
+20126051	Nguyen Quoc	Phat	3.5
+20126053	Truong Tan	Phong	4.5
+20126054	Cao Minh	Quang	5
+20126055	Truong Kim	Tan	10
+20126056	Truong Do Truong	Thinh	10
+20126057	Nguyen Tran Minh	Thu	6.5
+20126058	Pham Ngoc Anh	Thu	3.5
+20126059	Truong Tran Phuc	Tin	4
+20126061	Nguyen Minh	Triet	8.5
+20126062	Thieu Vinh	Trung	4
+20126063	Vo Chi	Tuong	9.5
+20126064	Nguyen Phuc	Uyen	10
