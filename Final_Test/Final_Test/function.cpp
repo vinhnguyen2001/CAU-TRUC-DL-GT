@@ -91,11 +91,11 @@ void heapify(SinhVien*& a, int n, int i) {
 	int left = 2 * i + 1;
 	int right = 2 * i + 2;
 
-	if (left < n && a[largest].diem > a[left].diem) {
+	if (left < n && a[largest].diem < a[left].diem) {
 		largest = left;
 	}
 
-	if (right < n && a[largest].diem > a[right].diem) {
+	if (right < n && a[largest].diem < a[right].diem) {
 		largest = right;
 	}
 	if (largest != i) {
@@ -159,13 +159,18 @@ BSTNode* insertElement(BSTNode*& root, SinhVien x) {
 }
 
 void lowestScore(BSTNode* root, string fileName) {
-	float min = -1;
+	BSTNode* min = nullptr;
 	if (root->left) {
 		lowestScore(root->left,fileName);
 	}
 	else {
-		min = root->data.diem;
-		cout << "\nmin" << min;
+		min = root;
+		fstream os(fileName, fstream::out);
+		if (!os) {
+			cout << "\nError opening file!" << endl;
+			return;
+		}
+		os << min->data.mssv << " " << min->data.hoten << ": " << min->data.diem;
 	}
 }
 
